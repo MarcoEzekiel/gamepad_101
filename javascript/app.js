@@ -57,7 +57,7 @@ window.onload = function() {
 		var clock = new THREE.Clock();
 		// custom global variables
 		var cube;
-		var spere;
+		var star;
 		init();
 		animate();
 
@@ -151,8 +151,8 @@ window.onload = function() {
 			      particle = new THREE.Vertex(
 			        new THREE.Vector3(pX, pY, pZ)
 			      );
-				//particle = new THREE.Particle( new THREE.ParticleCircleMaterial( { color: 0xffffff, opacity: 1, blending: THREE.AdditiveBlending } ) );
-
+				// particle = new THREE.Particle( new THREE.ParticleCircleMaterial( { color: 0xffffff, opacity: 1, blending: THREE.AdditiveBlending } ) );
+				// particle.position.set(px, py, pz);
 			  // add it to the geometry
 			  particles.vertices.push(particle);
 			}
@@ -202,23 +202,35 @@ window.onload = function() {
 			var planet1WireframeMaterial = new THREE.MeshBasicMaterial( { color: 0x7EB6FF, wireframe: true, transparent: true } ); 
 			var planet1Material = [ planet1DarkMaterial, planet1WireframeMaterial ]; 
 
-			satellite = THREE.SceneUtils.createMultiMaterialObject( 
+			planet = THREE.SceneUtils.createMultiMaterialObject( 
 			new THREE.SphereGeometry( 20, 32, 16 ), 
 			planet1Material );
 
-			satellite.position.set(300, 50, 0);
-			scene.add( satellite );
+			planet.position.set(300, 50, 0);
+			scene.add( planet );
 
 			var planet2DarkMaterial = new THREE.MeshBasicMaterial( { color: 0xFF00ff } );
 			var planet2WireframeMaterial = new THREE.MeshBasicMaterial( { color: 0x0000, wireframe: true, transparent: true } ); 
 			var planet2Material = [ planet2DarkMaterial, planet2WireframeMaterial ]; 
 
-			satellite2 = THREE.SceneUtils.createMultiMaterialObject( 
+			planet2 = THREE.SceneUtils.createMultiMaterialObject( 
 			new THREE.SphereGeometry( 30, 32, 16 ), 
 			planet2Material );
 
-			satellite2.position.set(700, 50, 0);
-			scene.add( satellite2 );			
+			planet2.position.set(700, 50, 0);
+			scene.add( planet2 );
+
+
+			var planet3DarkMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			var planet3WireframeMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, transparent: true } ); 
+			var planet3Material = [ planet3DarkMaterial, planet3WireframeMaterial ]; 
+
+			planet3 = THREE.SceneUtils.createMultiMaterialObject( 
+			new THREE.SphereGeometry( 35, 32, 16 ), 
+			planet3Material );
+
+			planet3.position.set(900, 50, 0);
+			scene.add( planet3 );				
 		}
 
 		var x_motion_positive = true;
@@ -226,7 +238,9 @@ window.onload = function() {
 		var releaseAmmo = false;
 		var follow = false;
 		var m_angle = 0;
-		var sat2_m_angle =0;
+		var planet2_m_angle =0;
+
+		var planet3_m_angle =0;
 
 		function animate() 
 		{
@@ -288,16 +302,24 @@ window.onload = function() {
 			// cubey stuff
 			// sphere.rotation.x += 0.01;
 			sphere.rotation.y += 0.01;
-			satellite.rotation.y += 0.008;
-			satellite2.rotation.y += 0.009;
+			planet.rotation.y += 0.008;
+			planet2.rotation.y += 0.009;
+			planet3.rotation.y += 0.011;
 
 			m_angle += 0.0049;
+			planet.position.set(   300* Math.cos(m_angle) + sphere.position.x , sphere.position.y ,300* Math.sin(m_angle) + sphere.position.z)
 
-			satellite.position.set(   300* Math.cos(m_angle) + sphere.position.x , sphere.position.y ,300* Math.sin(m_angle) + sphere.position.z)
+
+			planet2_m_angle += 0.0047; 
+			planet2.position.set(   500* Math.cos(planet2_m_angle) + sphere.position.x , sphere.position.y ,500* Math.sin(planet2_m_angle) + sphere.position.z)
+			
+
+			planet3_m_angle += 0.0027; 
+			planet3.position.set(   750* Math.cos(planet3_m_angle) + sphere.position.x , sphere.position.y ,700* Math.sin(planet3_m_angle) + sphere.position.z)
+			
 
 
-			sat2_m_angle += 0.0047; 
-			satellite2.position.set(   550* Math.cos(sat2_m_angle) + sphere.position.x , sphere.position.y ,550* Math.sin(sat2_m_angle) + sphere.position.z)
+
 			var coords = '<div>X: '+Math.round(camera.position.x * 100)/100 +'</div><div>Y: '+Math.round(camera.position.y * 100)/100 +'</div><div>Z: '+Math.round(camera.position.z * 100)/100 +'</div>'
 			$('#coords').html( coords  );
 			//pad.buttons[i]
