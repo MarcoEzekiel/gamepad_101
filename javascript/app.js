@@ -61,6 +61,7 @@ window.onload = function() {
 		init();
 		animate();
 
+
 		// FUNCTIONS 		
 		function init() 
 		{
@@ -70,6 +71,8 @@ window.onload = function() {
 			var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
 			var VIEW_ANGLE = 140, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
 			camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+
+
 			scene.add(camera);
 
 
@@ -111,7 +114,98 @@ window.onload = function() {
 			// floor.rotation.x = Math.PI / 1.5;
 			// scene.add(floor);
 
+
+			//TETRAFLOR
+
+			var baseX = 0;
+			var baseZ = 0;
+
+			//var angle = 108;
+			var len = 100;
+
+			var x,z;
+			var start_x = 0;
+			var start_z = 0;
+			var deg = 108;
+
+			// for( var i = 1; i <= 5; i++){
+
+
+
+			// 	var divisor = deg/180;
+			// 	var angle = Math.PI * divisor;
+
+		 //        x = start_x + ( len  * Math.cos(angle) );
+		 //        z = start_z + ( len  * Math.sin(angle) );
+
+			// 	//alert( start_x+' '+start_z+' '+x+' '+z);
+
+		 //        var lineGeometry = new THREE.Geometry();
+			// 	var vertArray = lineGeometry.vertices;
+
+			// 	vertArray.push( new THREE.Vector3( start_x , 0, start_z ), new THREE.Vector3( x, 0, z ));
+
+			// 	lineGeometry.computeLineDistances();
+			// 	var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
+			//  	line = new THREE.Line( lineGeometry, lineMaterial );
+
+			// 	scene.add(line);
+
+		 //        start_x = x;
+		 //        start_z = z;
+		 //        deg -= 108;
+		 //        //deg > 360 ? deg = deg -360: deg = deg;  
+			// }
+
+			// for( var i = 1; i <= 5; i++){
+
+				// var lineGeometry = new THREE.Geometry();
+				// var vertArray = lineGeometry.vertices;
+				// vertArray.push( new THREE.Vector3(49.85 + baseX, 0, 88.69 + baseZ), new THREE.Vector3(93.66 + baseX, 0, 81.61 + baseZ));
+				// lineGeometry.computeLineDistances();
+				// var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
+			 // 	line = new THREE.Line( lineGeometry, lineMaterial );
+				// scene.add(line);
+
+				// var lineGeometry = new THREE.Geometry();
+				// var vertArray = lineGeometry.vertices;
+				// vertArray.push( new THREE.Vector3(93.66 + baseX, 0, 81.61 + baseZ), new THREE.Vector3(90.96 + baseX, 0, 34.67 + baseZ));
+				// lineGeometry.computeLineDistances();
+				// var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
+			 // 	line = new THREE.Line( lineGeometry, lineMaterial );
+				// scene.add(line);
+
+				// var lineGeometry = new THREE.Geometry();
+				// var vertArray = lineGeometry.vertices;
+				// vertArray.push( new THREE.Vector3(90.96 + baseX, 0, 34.67 + baseZ), new THREE.Vector3(45.47 + baseX, 0, 22.73 + baseZ));
+				// lineGeometry.computeLineDistances();
+				// var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
+			 // 	line = new THREE.Line( lineGeometry, lineMaterial );
+				// scene.add(line);
+
+				// var lineGeometry = new THREE.Geometry();
+				// var vertArray = lineGeometry.vertices;
+				// vertArray.push( new THREE.Vector3(45.47 + baseX, 0, 22.73 + baseZ), new THREE.Vector3(20.07 + baseX, 0, 62.30 + baseZ));
+				// lineGeometry.computeLineDistances();
+				// var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
+			 // 	line = new THREE.Line( lineGeometry, lineMaterial );
+				// scene.add(line);
+
+			// 	var lineGeometry = new THREE.Geometry();
+			// 	var vertArray = lineGeometry.vertices;
+			// 	vertArray.push( new THREE.Vector3(20.07 + baseX, 0, 62.30 + baseZ), new THREE.Vector3(49.85 + baseX, 0, 88.69 + baseZ));
+			// 	lineGeometry.computeLineDistances();
+			// 	var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
+			//  	line = new THREE.Line( lineGeometry, lineMaterial );
+			// 	scene.add(line);
+
+			// 	baseX += 49.85;
+			// 	baseZ += 88.69;
+			// }
+
 			
+
+
 
 			// SKYBOX/FOG
 			var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
@@ -230,7 +324,18 @@ window.onload = function() {
 			planet3Material );
 
 			planet3.position.set(900, 50, 0);
-			scene.add( planet3 );				
+			scene.add( planet3 );	
+
+
+
+
+
+
+
+
+
+
+
 		}
 
 		var x_motion_positive = true;
@@ -248,7 +353,7 @@ window.onload = function() {
 
 			var pad = gamepads[0];
 			if( pad )
-			 {
+			{
 			// 	cube.position.x += pad.axes[0] * 10;
 			// 	cube.position.y -= pad.axes[1] * 10;
 			// 	cube.position.z += pad.axes[3] * 10;
