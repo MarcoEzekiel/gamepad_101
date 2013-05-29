@@ -1,8 +1,7 @@
 window.onload = function() {
 
-
 	
-
+	function de2ra(degree)   { return degree*(Math.PI/180); }
 
 	function showPadDetails(){
 
@@ -50,6 +49,7 @@ window.onload = function() {
 	var planet = [];
 	var sol = [];
 	var suns = [];
+	var lookAt;
 
 	start();
   
@@ -86,7 +86,8 @@ window.onload = function() {
 			scene.add(camera);
 			
 			camera.position.set(0,0,14000);
-			camera.lookAt(scene.position);	
+			lookAt = scene.position;
+			camera.lookAt(lookAt);	
 
 			if ( Detector.webgl )
 				renderer = new THREE.WebGLRenderer( {antialias:true} );
@@ -115,7 +116,7 @@ window.onload = function() {
 
 
 			var light2 = new THREE.PointLight(0xffffff);
-			light2.position.set(1000,250,12000);
+			light2.position.set(0,0,16000);
 			scene.add(light2);
 
 			function addSolidLineShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s,index ){
@@ -168,12 +169,13 @@ window.onload = function() {
 				// var wireframeMaterial = new THREE.MeshBasicMaterial( { color: 0xFF6103, wireframe: true, transparent: true } ); 
 				// var multiMaterial = [ darkMaterial, wireframeMaterial ]; 
 				
+				index % 2 == 0 ? img = "images/fire.jpeg": img = "images/blue.jpeg"
 				var fire = new THREE.MeshBasicMaterial({
-				    map: THREE.ImageUtils.loadTexture("images/fire.jpeg")
+				    map: THREE.ImageUtils.loadTexture(img)
 				});
 
 				var sphereGeometry = new THREE.SphereGeometry(radius, segWidth, segHeight);
-				var sphereTexture = new THREE.ImageUtils.loadTexture( 'images/fire.jpeg' );
+				var sphereTexture = new THREE.ImageUtils.loadTexture( img );
 				var sphereMaterial = new THREE.MeshBasicMaterial( { map: sphereTexture } );
 				sol[index] = new THREE.Mesh(sphereGeometry.clone() , sphereMaterial);
 
@@ -197,7 +199,7 @@ window.onload = function() {
 
 
 			// create the particle variables
-			var particleCount = 14400,
+			var particleCount = 288800,
 			    particles = new THREE.Geometry(),
 			    pMaterial =
 			      new THREE.ParticleBasicMaterial({
@@ -247,7 +249,7 @@ window.onload = function() {
 
 
 			// sun addSun(x, y, z, radius, segWidth, segHeight, index )
-			addSun(0,0,1000,900,32,16,2);
+			addSun(-2000,4000,-4000,900,32,16,2);
 			//planets
 			addPlanet(600, sol[2].position.y, sol[2].position.z, 22, 32, 16, 0xFF00ff, 0x000000, 5 ,0.0047	,2);
 			addPlanet(1250, sol[2].position.y, sol[2].position.z, 75, 32, 16, 0x00ff00, 0x000000, 6 ,0.0027	,2);
@@ -279,17 +281,27 @@ window.onload = function() {
 
 			// var lineGeometry = new THREE.Geometry();
 			// var vertArray = lineGeometry.vertices;
-			// vertArray.push( new THREE.Vector3(-10, 0, camera.position.z-10), new THREE.Vector3(10, 0, camera.position.z-10));
+			// vertArray.push( new THREE.Vector3(-10, 0, camera.position.z), new THREE.Vector3(10, 0, 0));
 			// lineGeometry.computeLineDistances();
 			// var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
 		 // 	crossX = new THREE.Line( lineGeometry, lineMaterial );
+		 // 	//crossX.rotation.z = .45;
+			// scene.add(crossX);
+
+			// var lineGeometry = new THREE.Geometry();
+			// var vertArray = lineGeometry.vertices;
+			// vertArray.push( new THREE.Vector3(-10, 0, camera.position.z-10), new THREE.Vector3(10, 0, camera.position.z-10));
+			// lineGeometry.computeLineDistances();
+			// var lineMaterial = new THREE.LineBasicMaterial( { color: 0x00cc00 } );
+		 // 	crossX = new THREE.Line( lineGeometry, lineMaterial );
+		 // 	//crossX.rotation.z = .45;
 			// scene.add(crossX);
 
 			// var lineGeometry = new THREE.Geometry();
 			// var vertArray = lineGeometry.vertices;
 			// vertArray.push( new THREE.Vector3(0, -10, camera.position.z-10), new THREE.Vector3(0, 10, camera.position.z-10));
 			// lineGeometry.computeLineDistances();
-			// var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
+			// var lineMaterial = new THREE.LineBasicMaterial( { color: 0x0000cc } );
 		 // 	crossY = new THREE.Line( lineGeometry, lineMaterial );
 			// scene.add(crossY);
 
@@ -303,7 +315,8 @@ window.onload = function() {
 		var planet2_m_angle =0;
 		var planet3_m_angle =0;
 		var planet4_m_angle =0;
-
+		var theta_xz =0;
+		var theta_yz =0;
 		function animate() 
 		{
 			var gamepads = navigator.webkitGetGamepads();
@@ -319,25 +332,48 @@ window.onload = function() {
 				var cyaxis  = Math.round( pad.axes[1] * 10 ) / 10; 
 				var czaxis  = Math.round( pad.axes[3] * 10 ) / 10; 
 
-				camera.position.set(camera.position.x + ( cxaxis * 10), camera.position.y+ ( cyaxis * 10 ), camera.position.z + ( czaxis * 10));
 				
 				//camera.position.z <=.01 ? camera.rotation.x = 180: camera.rotation.x = 0;
 				//crossX.position.set(crossX.position.x + ( cxaxis * 10), crossX.position.y+ ( cyaxis * 10 ), crossX.position.z+ ( czaxis * 10));
 			  	//crossY.position.set(crossY.position.x + ( cxaxis * 10), crossY.position.y+ ( cyaxis * 10 ), crossY.position.z+ ( czaxis * 10));
 //			alert(scene.position.x+':'+scene.position.y+':'+scene.position.z);
 			//calculate distance to 0,0,0
-			var r = Math.sqrt(Math.pow(camera.position.x,2) + Math.pow(camera.position.y,2) + Math.pow(camera.position.z,2));
 
 
-//sx, sy, sz are the coordinates you are trying to calculate. 
-//cx, cy, cz are the coordinates you are at, 
-//r is euclidean distance (range in your terms). 
-//theta_xz is the angle in the xz plane (sweeping from z to x), 
-//and theta yz is the angl in the yz plane (sweeping from z to y).
 
-// sx = (Math.sin(theta_xz) * r * Math.cos(theta_yz)) + camera.position.x;
-// sy = (r*Math.sin(theta_yz) ) + camera.position.y;
-// sz = (Math.cos(theta_xz) * r * Math.cos(theta_yz)) + camera.position.z;
+				//sx, sy, sz are the coordinates you are trying to calculate. 
+				//cx, cy, cz are the coordinates you are at, 
+				//r is euclidean distance (range in your terms). 
+				//theta_xz is the angle in the xz plane (sweeping from z to x), 
+				//and theta yz is the angl in the yz plane (sweeping from z to y).
+				//alert(lookAt.x+":"+lookAt.y+":"+lookAt.z);
+				isNaN(lookAt.x) ? lookAt.x = 0: lookAt.x = lookAt.x;
+				isNaN(lookAt.y) ? lookAt.y = 0: lookAt.y = lookAt.y;
+				isNaN(lookAt.z) ? lookAt.z = 0: lookAt.z = lookAt.z;
+				var r = Math.sqrt(Math.pow(camera.position.x -lookAt.x,2) + Math.pow(camera.position.y - lookAt.y,2) + Math.pow(camera.position.z - lookAt.z,2));
+				cxaxis > 0 ? rxMotion = 2:rxMotion = -2;
+				cyaxis > 0 ? ryMotion = 2:ryMotion = -2;
+				czaxis > 0 ? rzMotion = 2:rzMotion = -2;
+
+				theta_xz += de2ra(cxaxis);
+				theta_yz += de2ra(cyaxis);
+
+				if(czaxis != 0){
+					moveTo.x = (Math.sin(theta_xz) * rxMotion * Math.cos(theta_yz)) + camera.position.x;
+					moveTo.y = (ryMotion*Math.sin(theta_yz) ) + camera.position.y;
+					moveTo.z = ( Math.cos(theta_xz) * rzMotion *  Math.cos(theta_yz)) + camera.position.z;
+					//alert(theta_xz+":"+theta_yz+":"+moveTo.x+":"+moveTo.y+":"+moveTo.z);
+					camera.position.set(moveTo.x, moveTo.y, moveTo.z);
+
+
+
+					lookAt.x = (Math.sin(theta_xz) * r * Math.cos(theta_yz)) + camera.position.x;
+					lookAt.y = (r*Math.sin(theta_yz) ) + camera.position.y;
+					lookAt.z = (Math.cos(theta_xz) * r * Math.cos(theta_yz)) - camera.position.z;
+					
+				}
+				//alert(lookAt.x+":"+lookAt.y+":"+lookAt.z);
+				camera.lookAt(lookAt)
 			}
 			
 
@@ -380,8 +416,19 @@ window.onload = function() {
 			planet[7].position.set(   (sol[2].radius+1850)* Math.cos(planet[7].motionAngle) + sol[2].position.x , sol[2].position.y ,(sol[2].radius+1150)* Math.sin(planet[7].motionAngle) + sol[2].position.z)
 			
 
-			var coords = '<div>X: '+Math.round(camera.position.x * 100)/100 +'</div><div>Y: '+Math.round(camera.position.y * 100)/100 +'</div><div>Z: '+Math.round(camera.position.z * 100)/100 +'</div>'
-			$('#coords').html( coords  );
+			var xDisplay = '<div class="headerShort">X: '+Math.round(camera.position.x * 100)/100 +'</div>';
+			var yDisplay = '<div class="headerShort">Y: '+Math.round(camera.position.y * 100)/100 +'</div>';
+			var zDisplay = '<div class="headerShort">Z: '+Math.round(camera.position.z * 100)/100 +'</div>';
+			var theta_yzDisplay = '<div class="headerLong">theta_yz: '+theta_yz+'</div> ';
+			var theta_xzDisplay = '<div class="headerLong">theta_xz: '+theta_xz+'</div>';
+			var displayLookAtX = '<div class="headerLong">lookAtX: '+lookAt.x +'</div>';
+			var displayLookAtY = '<div class="headerLong">lookAtY: '+lookAt.y +'</div>';
+			var displayLookAtZ = '<div class="headerLong">lookAtZ: '+lookAt.z +'</div>';
+			var details = xDisplay+yDisplay+zDisplay+theta_yzDisplay+theta_xzDisplay+displayLookAtX+displayLookAtY+displayLookAtZ;
+
+
+
+			$('#details').html( details  );
 			//pad.buttons[i]
 		    requestAnimationFrame( animate );
 			render();		
