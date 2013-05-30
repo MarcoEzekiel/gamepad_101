@@ -157,7 +157,7 @@ window.onload = function() {
 				planet[index] = THREE.SceneUtils.createMultiMaterialObject( 
 				new THREE.SphereGeometry( radius, segWidth, segHeight  ), 
 				planetMaterial );
-
+				planet[index].radius = radius;
 				planet[index].position.set( sol[sunIndex].radius + xDistance ,y,z);
 				planet[index].motionAngle = motionAngle;
 				scene.add( planet[index] );
@@ -199,39 +199,39 @@ window.onload = function() {
 
 
 			// create the particle variables
-			var particleCount = 288800,
-			    particles = new THREE.Geometry(),
-			    pMaterial =
-			      new THREE.ParticleBasicMaterial({
-			        color: 0xFBDB0C,
-			        size: .9
-			      });
-				pMaterial.blending = THREE.AdditiveBlending;
-			// now create the individual particles
-			for(var p = 0; p < particleCount; p++) {
+			// var particleCount = 288800,
+			//     particles = new THREE.Geometry(),
+			//     pMaterial =
+			//       new THREE.ParticleBasicMaterial({
+			//         color: 0xFBDB0C,
+			//         size: .9
+			//       });
+			// 	pMaterial.blending = THREE.AdditiveBlending;
+			// // now create the individual particles
+			// for(var p = 0; p < particleCount; p++) {
 
-			  // create a particle with random
-			  // position values, -250 -> 250
-			  var pX = Math.random() * 14000 -7000,
-			      pY = Math.random() * 14000 -7000,
-			      pZ = Math.random() * 14000 -7000,
-			      particle = new THREE.Vertex(
-			        new THREE.Vector3(pX, pY, pZ)
-			      );
-				// particle = new THREE.Particle( new THREE.ParticleCircleMaterial( { color: 0xffffff, opacity: 1, blending: THREE.AdditiveBlending } ) );
-				// particle.position.set(px, py, pz);
-			  // add it to the geometry
-			  particles.vertices.push(particle);
-			}
+			//   // create a particle with random
+			//   // position values, -250 -> 250
+			//   var pX = Math.random() * 14000 -7000,
+			//       pY = Math.random() * 14000 -7000,
+			//       pZ = Math.random() * 14000 -7000,
+			//       particle = new THREE.Vertex(
+			//         new THREE.Vector3(pX, pY, pZ)
+			//       );
+			// 	// particle = new THREE.Particle( new THREE.ParticleCircleMaterial( { color: 0xffffff, opacity: 1, blending: THREE.AdditiveBlending } ) );
+			// 	// particle.position.set(px, py, pz);
+			//   // add it to the geometry
+			//   particles.vertices.push(particle);
+			// }
 
-			// create the particle system
-			var particleSystem =
-			  new THREE.ParticleSystem(
-			    particles,
-			    pMaterial);
+			// // create the particle system
+			// var particleSystem =
+			//   new THREE.ParticleSystem(
+			//     particles,
+			//     pMaterial);
 
-			// add it to the scene
-			scene.add(particleSystem);
+			// // add it to the scene
+			// scene.add(particleSystem);
 			function sun(){
 
 			}
@@ -242,7 +242,7 @@ window.onload = function() {
 			addPlanet(200, sol[1].position.y, sol[1].position.z, 20, 32, 16, 0x0000ff, 0x7EB6FF, 1 ,0.0049	,1);
 			addPlanet(400, sol[1].position.y, sol[1].position.z, 30, 32, 16, 0xFF00ff, 0x000000, 2 ,0.0047	,1);
 			addPlanet(650, sol[1].position.y, sol[1].position.z, 35, 32, 16, 0x00ff00, 0x000000, 3 ,0.0027	,1);
-			addPlanet(1250,sol[1].position.y, sol[1].position.z, 91, 32, 16, 0xFFA07A, 0x000000, 4 ,0.00201	,1);	
+			addPlanet(1650,sol[1].position.y, sol[1].position.z, 91, 32, 16, 0xFFA07A, 0x000000, 4 ,0.00201	,1);	
 
 
 
@@ -255,7 +255,11 @@ window.onload = function() {
 			addPlanet(1250, sol[2].position.y, sol[2].position.z, 75, 32, 16, 0x00ff00, 0x000000, 6 ,0.0027	,2);
 			addPlanet(1850,sol[2].position.y, sol[2].position.z, 61, 32, 16, 0xFFA07A, 0x000000, 7 ,0.00201	,2);	
 
-
+//tilt
+			planet[4].rotation.z = 12;
+			//moons
+			addPlanet(200,planet[4].position.y, planet[4].position.z, 16, 32, 16, 0xFF00ff, 0x000000, 8 ,0.00201	,2);
+			addPlanet(300,planet[4].position.y, planet[4].position.z, 12, 32, 16, 0xFF00ff, 0x000000, 9 ,0.00201	,2);
 			var radInner = 150;
 			var radMiddle = 155;
 			var radOuter = 160;
@@ -370,7 +374,7 @@ window.onload = function() {
 					lookAt.x = (Math.sin(theta_xz) * r * Math.cos(theta_yz)) + camera.position.x;
 					lookAt.y = (r*Math.sin(theta_yz) ) + camera.position.y;
 					lookAt.z = (Math.cos(theta_xz) * r * Math.cos(theta_yz)) - camera.position.z;
-					
+
 				}
 				//alert(lookAt.x+":"+lookAt.y+":"+lookAt.z);
 				camera.lookAt(lookAt)
@@ -378,19 +382,23 @@ window.onload = function() {
 			
 
 			// cubey stuff
-			sol[1].rotation.y += 0.01;
-			sol[2].rotation.y += 0.01;
+			sol[1].rotation.y -= 0.01;
+			sol[2].rotation.y -= 0.01;
 
 
 
 
-			planet[1].rotation.y += 0.008;
-			planet[2].rotation.y += 0.009;
-			planet[3].rotation.y += 0.011;
-			planet[4].rotation.y += 0.011;
-			planet[5].rotation.y += 0.011;
-			planet[6].rotation.y += 0.014;
-			planet[7].rotation.y += 0.018;
+			planet[1].rotation.y -= 0.008;
+			planet[2].rotation.y -= 0.009;
+			planet[3].rotation.y -= 0.011;
+			planet[4].rotation.y -= 0.011;
+			planet[5].rotation.y -= 0.011;
+			planet[6].rotation.y -= 0.014;
+			planet[7].rotation.y -= 0.018;
+
+			planet[8].rotation.y -= 0.018;
+
+			planet[9].rotation.y -= 0.036;
 
 			planet[1].motionAngle += 0.0049;
 			planet[1].position.set(   (sol[1].radius+200) * Math.cos(planet[1].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+200)* Math.sin(planet[1].motionAngle) + sol[1].position.z)
@@ -415,6 +423,12 @@ window.onload = function() {
 			planet[7].motionAngle += 0.00201;
 			planet[7].position.set(   (sol[2].radius+1850)* Math.cos(planet[7].motionAngle) + sol[2].position.x , sol[2].position.y ,(sol[2].radius+1150)* Math.sin(planet[7].motionAngle) + sol[2].position.z)
 			
+			planet[8].motionAngle += 0.00601;
+			planet[8].position.set(   (planet[4].radius+200)* Math.cos(planet[8].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+200)* Math.sin(planet[8].motionAngle) + planet[4].position.z)
+
+			planet[9].motionAngle += 0.00301;
+			planet[9].position.set(   (planet[4].radius+300)* Math.cos(planet[9].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+300)* Math.sin(planet[9].motionAngle) + planet[4].position.z)
+
 
 			var xDisplay = '<div class="headerShort">X: '+Math.round(camera.position.x * 100)/100 +'</div>';
 			var yDisplay = '<div class="headerShort">Y: '+Math.round(camera.position.y * 100)/100 +'</div>';
