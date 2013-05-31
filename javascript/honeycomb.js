@@ -126,7 +126,7 @@ window.onload = function() {
 
 
 				var points = shape.createPointsGeometry();
-				
+
 
 				shape_line[index] = new THREE.Line( points, new THREE.LineBasicMaterial( { color: color, linewidth: 2 } ) );
 				shape_line[index].position.set( x, y, z );
@@ -144,7 +144,7 @@ window.onload = function() {
 					
 					var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
 
-					mesh[index] = THREE.SceneUtils.createMultiMaterialObject( geometry, [ new THREE.MeshLambertMaterial( { color: color } ), new THREE.MeshBasicMaterial( { color: 0xFF6EC7, wireframe: true, transparent: true } ) ] );
+					mesh[index] = THREE.SceneUtils.createMultiMaterialObject( geometry, [ new THREE.MeshLambertMaterial( { color: color } ), new THREE.MeshBasicMaterial( { color: color, wireframe: true, transparent: true } ) ] );
 					mesh[index].position.set( x, y, z);
 					mesh[index].rotation.set( rx, ry, rz );
 					mesh[index].scale.set( s, s, s );
@@ -251,11 +251,12 @@ window.onload = function() {
 			}
 
 			hexOut();
+
 			var index=0;
 			var hexaShape = new THREE.Shape( hexaPts );
 			var extrudeSettings = { amount: 20 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5;
-			addSolidLineShape( hexaShape, extrudeSettings, 0xFF00FF, 0, 0, 0, 0, 0, 33, 1, index );
-			addExtruded3DShape( hexaShape, extrudeSettings, 0xFF00FF, 0, 0, 0, 0, 0,33, 1, index );
+			addSolidLineShape( hexaShape, extrudeSettings, Math.random() * 0xffffff, 0, 0, 0, 0, 0, 33, 1, index );
+			addExtruded3DShape( hexaShape, extrudeSettings, Math.random() * 0xffffff, 0, 0, 0, 0, 0,33, 1, index );
 
 			for (var ibig = 1; ibig <=6; ibig ++){
 
@@ -263,12 +264,13 @@ window.onload = function() {
 				yInner = rInner * Math.sin(2 * Math.PI * ibig / n).toFixed(8);
 
 				hexOut();
-
+				//randC = new toHex(randomColor());
+				//alert( randC);
 				var hexaShape = new THREE.Shape( hexaPts );
 				var extrudeSettings = { amount: 20 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5;
 
-				addSolidLineShape( hexaShape, extrudeSettings, 0xFF00FF, xInner, yInner, 0, 0, 0, 33, 1, ibig );
-				addExtruded3DShape( hexaShape, extrudeSettings, 0xFF00FF, xInner, yInner, 0, 0, 0,33, 1, ibig );
+				addSolidLineShape( hexaShape, extrudeSettings, Math.random() * 0xffffff, xInner, yInner, 0, 0, 0, 33, 1, ibig );
+				addExtruded3DShape( hexaShape, extrudeSettings, Math.random() * 0xffffff, xInner, yInner, 0, 0, 0,33, 1, ibig );
 			}
 
 
@@ -276,7 +278,6 @@ window.onload = function() {
 			n = 12;
 			for (var ibig = 7; ibig < 19; ibig ++){
 
-				ibig % 2 == 0 ? color =  0xFF00FF: color = 0xFF00FF;
 				ibig % 2 == 0 ? rOuter =  800: rOuter = 700;
 
 				xOuter = rOuter * Math.cos(2 * Math.PI * ibig / n).toFixed(8);
@@ -292,8 +293,8 @@ window.onload = function() {
 
 				var hexaShape = new THREE.Shape( hexaPts );
 				var extrudeSettings = { amount: 20 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5;
-				addSolidLineShape( hexaShape, extrudeSettings, color, xOuter, yOuter, 0, 0, 0,33, 1, ibig );
-				addExtruded3DShape( hexaShape, extrudeSettings, color, xOuter, yOuter, 0, 0, 0,33, 1, ibig );
+				addSolidLineShape( hexaShape, extrudeSettings, Math.random() * 0xffffff, xOuter, yOuter, 0, 0, 0,33, 1, ibig );
+				addExtruded3DShape( hexaShape, extrudeSettings, Math.random() * 0xffffff, xOuter, yOuter, 0, 0, 0,33, 1, ibig );
 			}
 
 			hexaPts = [];
@@ -301,7 +302,6 @@ window.onload = function() {
 			for (var ibig = 19; ibig <37; ibig ++){
 
 
-				ibig % 3 == 0 ? color =  0xFF00FF: color = 0xFF00FF;
 				ibig % 3 == 0 ? rWayOuter =  1200: rWayOuter = 1100;
 				
 
@@ -319,8 +319,8 @@ window.onload = function() {
 				var hexaShape = new THREE.Shape( hexaPts );
 				//var extrudeSettings = { amount: 20, bevelSegments: 4, steps: 8 , bevelSize: 8, bevelThickness:5 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5;
 				var extrudeSettings = { amount: 20 }; 
-				addSolidLineShape( hexaShape, extrudeSettings, color, xWayOuter, yWayOuter, 0, 0, 0,33, 1, ibig );
-				addExtruded3DShape( hexaShape, extrudeSettings, color, xWayOuter, yWayOuter, 0, 0, 0,33, 1, ibig );
+				addSolidLineShape( hexaShape, extrudeSettings, Math.random() * 0xffffff, xWayOuter, yWayOuter, 0, 0, 0,33, 1, ibig );
+				addExtruded3DShape( hexaShape, extrudeSettings, Math.random() * 0xffffff, xWayOuter, yWayOuter, 0, 0, 0,33, 1, ibig );
 			}
 
 	

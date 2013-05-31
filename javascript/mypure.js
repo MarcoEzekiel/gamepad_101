@@ -133,8 +133,33 @@
 
     var randomNumber;
 
+    function hexBuffer(){
+            var vtcs = [];
+            var hexVPB = gl.createBuffer();
+
+            gl.bindBuffer(gl.ARRAY_BUFFER, hexVPB);
+            // hex vericies with radius of 1
+            for (var i = 1; i <=7; i ++){
+
+                        x = 1 * Math.cos(2 * Math.PI * i / 6).toFixed(6);
+                        y = 1 * Math.sin(2 * Math.PI * i / 6).toFixed(6); 
+                        
+                        vtcs.push(x);
+                        vtcs.push(y);
+                        vtcs.push(0);
+            }
+
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+            hexVPB.itemSize = 3;
+            hexVPB.numItems = 7;
+
+            return hexVPB;
+    }
+
+    var hexPosBuffer;
     function initBuffers() {
 
+        hexPosBuffer = new hexBuffer();
 
         vertices = [];    
         hexVertexPositionBuffer = gl.createBuffer();
@@ -205,6 +230,8 @@
         mat4.identity(mvMatrix);
 
         var hex1 = function(x,y,z, colorBuffer){
+            //hpb = new initBuffers.hexBuffer();
+
             mat4.translate(mvMatrix, [x,y,z]);
 
             mvPushMatrix();
