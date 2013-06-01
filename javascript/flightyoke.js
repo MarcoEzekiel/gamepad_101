@@ -1,11 +1,16 @@
 window.onload = function() {
 
+	var GUAGE = 0;
+	var LAMP = 1;
+
 	var mesh = [];
 	function de2ra(degree)   { return degree*(Math.PI/180); }
 
 	var circPoints =[];
 	var indicators = [];
+	var lamps = [];
 	var text = [];
+	var shape_line = [];
 
 	function showPadDetails(){
 
@@ -118,17 +123,17 @@ window.onload = function() {
 			light2.position.set(0,0,16000);
 			scene.add(light2);
 
-			function addSolidLineShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s,index ){
-				var shape_line =[];
+			function addSolidLineShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s,index, OBJ ){
+				//shape_line =[];
 
 				var points = shape.createPointsGeometry();
-				
+				shape_line[shape] = [];
 
-				shape_line[index] = new THREE.Line( points, new THREE.LineBasicMaterial( { color: color, linewidth: 2 } ) );
-				shape_line[index].position.set( x, y, z );
-				shape_line[index].rotation.set( rx, ry, rz );
-				shape_line[index].scale.set( s, s, s );
-				scene.add( shape_line[index] );
+				shape_line[shape][index] = new THREE.Line( points, new THREE.LineBasicMaterial( { color: color, linewidth: 2 } ) );
+				shape_line[shape][index].position.set( x, y, z );
+				shape_line[shape][index].rotation.set( rx, ry, rz );
+				shape_line[shape][index].scale.set( s, s, s );
+				scene.add( shape_line[shape][index] );
 			}
 
 			
@@ -148,6 +153,27 @@ window.onload = function() {
 
 			}
 
+			function addLampButtonIndicator(x,y,z,radius,index,colorOff, colorOn){
+				circPoints = [];
+				lamps = [];
+				function setCirclePointCoordinates(radius){
+					for(var iDeg= 1; iDeg <=360 ; iDeg++){
+						var xN = radius * Math.cos(2 * Math.PI * iDeg / 360).toFixed(6);
+						var yN = radius * Math.sin(2 * Math.PI * iDeg / 360).toFixed(6); 
+						circPoints.push(new THREE.Vector2 (xN+x,yN+y));
+					}
+				}
+				setCirclePointCoordinates(radius);
+
+				
+				var circShape = new THREE.Shape( circPoints );
+				var extrudeSettings = { amount: 20 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5;
+				addSolidLineShape( circShape, extrudeSettings, colorOff, 0, 0, 0, 0, 0, 0, 1, index,LAMP );
+				//lamps[index].colorOn = colorOn;
+				//lamps[index].colorOff = colorOff;
+			
+			}
+
 
 			function drawGuage(x,y,z,radius,index,color,axisController){
 
@@ -164,15 +190,15 @@ window.onload = function() {
 				
 				var circShape = new THREE.Shape( circPoints );
 				var extrudeSettings = { amount: 20 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5;
-				addSolidLineShape( circShape, extrudeSettings, color, 0, 0, 0, 0, 0, 0, 1, index );
+				addSolidLineShape( circShape, extrudeSettings, color, 0, 0, 0, 0, 0, 0, 1, index,GUAGE );
 				//addExtruded3DShape( circShape, extrudeSettings, Math.random() * 0xffffff, 0, 0, 0, 0, 0,0, .8, index );
+
 
 				var lineGeometry = new THREE.Geometry();
 				var vertArray = lineGeometry.vertices;
 				vertArray.push( new THREE.Vector3(x, y ,z), new THREE.Vector3(x,radius,z));
 				lineGeometry.computeLineDistances();
 				var lineMaterial = new THREE.LineBasicMaterial( { color:color } );
-
 
 			 	indicators[index] = new THREE.Line( lineGeometry, lineMaterial );
 			 	indicators[index].startX = x;
@@ -271,9 +297,17 @@ window.onload = function() {
 			////////////
 
 			drawGuage(0,0,0,200,1,Math.random() * 0xffffff,null);
-			drawGuage(-400,0,0,160,2,Math.random() * 0xffffff,null);
-			drawGuage(400,0,0,160,3,Math.random() * 0xffffff,null);
-			//drawGuage(0,-400,0,120,4,Math.random() * 0xffffff,null);
+			drawGuage(-400,0,0,140,2,Math.random() * 0xffffff,null);
+			drawGuage(400,0,0,140,3,Math.random() * 0xffffff,null);
+			drawGuage(-245,230,0,120,4,Math.random() * 0xffffff,null);
+
+			//addLampButtonIndicator(x,y,z,radius,index,colorOff, ColorOn)
+			addLampButtonIndicator(-500, 400, 0 , 15, 0, 0xFFFF00, 0xFF0000);
+			addLampButtonIndicator( 500, 400, 0 , 15, 1, 0xFFFF00, 0xFF0000);
+
+
+			addLampButtonIndicator(-540, 360, 0 , 15, 8, 0xFFFF00, 0xFF0000);
+			addLampButtonIndicator(-540, 300, 0 , 15, 9, 0xFFFF00, 0xFF0000);
 
 		
 
@@ -307,17 +341,28 @@ window.onload = function() {
 				var caxis9  = Math.round( pad.axes[9] * 10 ) / 10; // right thumb
 
 
-				for( var gIdx = 1; gIdx <=3; gIdx++ ){
+				var cbutton0 = pad.buttons[0]; 
+				var cbutton0 = pad.buttons[1];
+				var cbutton0 = pad.buttons[2];
+				var cbutton0 = pad.buttons[3];
+				var cbutton0 = pad.buttons[4];
+				var cbutton0 = pad.buttons[5];
+				var cbutton0 = pad.buttons[6];
+				var cbutton0 = pad.buttons[7];
+				var cbutton0 = pad.buttons[8];
+				var cbutton0 = pad.buttons[9];
+
+				for( var gIdx = 1; gIdx <=4; gIdx++ ){
 
 					switch(gIdx){
 						case 1:
 						  cAxis  = caxis2;
 						  break;
 						case 2:
-						  cAxis  = caxis3;
+						  cAxis  = caxis4;
 						  break;
 						case 3:
-						  cAxis  = caxis4;
+						  cAxis  = caxis3;
 						  break;
 						case 4:
 						  cAxis  = caxis9;
@@ -333,11 +378,11 @@ window.onload = function() {
 					var y = indicators[gIdx].radius * Math.sin(2 * Math.PI * iDeg / 360).toFixed(6); 
 		
 
-					 startX[gIdx] = indicators[gIdx].startX;
-					 startY[gIdx] = indicators[gIdx].startY;
-					 startZ[gIdx] = indicators[gIdx].startZ;
-					 radius[gIdx] = indicators[gIdx].radius;
-					 color[gIdx] = indicators[gIdx].color;
+					startX[gIdx] = indicators[gIdx].startX;
+					startY[gIdx] = indicators[gIdx].startY;
+					startZ[gIdx] = indicators[gIdx].startZ;
+					radius[gIdx] = indicators[gIdx].radius;
+					color[gIdx] = indicators[gIdx].color;
 
 					scene.remove( indicators[gIdx] );
 
@@ -358,6 +403,8 @@ window.onload = function() {
 					indicators[gIdx].color  = color[gIdx];
 					scene.add(	indicators[gIdx]	);
 				}
+
+
 			
 			}
 			

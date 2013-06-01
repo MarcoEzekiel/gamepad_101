@@ -1,5 +1,9 @@
 body{
 	background-color:black;
+	color:white;
+}
+a{
+	color:#FF00FF;
 }
 #details{
 	color:white;
