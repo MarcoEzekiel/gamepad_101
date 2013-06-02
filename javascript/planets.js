@@ -213,10 +213,15 @@ window.onload = function() {
 			    particles = new THREE.Geometry(),
 			    pMaterial =
 			      new THREE.ParticleBasicMaterial({
-			        color: 0xFBDB0C,
-			        size: Math.random() * 10
+			        color: 0xFFFFFF,
+			        size: Math.random() * 50,
+				    map: THREE.ImageUtils.loadTexture(
+				      "images/star1.jpg"
+				    ),
+				    blending: THREE.AdditiveBlending,
+				    transparent: true
 			      });
-				pMaterial.blending = THREE.AdditiveBlending;
+				//pMaterial.blending = THREE.AdditiveBlending;
 			// now create the individual particles
 			for(var p = 0; p < particleCount; p++) {
 
@@ -239,7 +244,7 @@ window.onload = function() {
 			  new THREE.ParticleSystem(
 			    particles,
 			    pMaterial);
-
+			particleSystem.sortParticles = true;
 			// add it to the scene
 			scene.add(particleSystem);
 
