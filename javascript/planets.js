@@ -1,8 +1,9 @@
 window.onload = function() {
 
-	
+	// you know , For Circles
 	function de2ra(degree)   { return degree*(Math.PI/180); }
 
+	// shows buttons and axes data
 	function showPadDetails(){
 
 		var gamepadSupportAvailable = Modernizr.gamepads;
@@ -45,7 +46,8 @@ window.onload = function() {
 
 	//showPadDetails();
 
-	// container for planets
+	// containers for objects
+	// 
 	var planet = [];
 	var sol = [];
 	var suns = [];
@@ -65,9 +67,8 @@ window.onload = function() {
 		var container, scene, camera, renderer, controls, stats;
 		var keyboard = new THREEx.KeyboardState();
 		var clock = new THREE.Clock();
-		// custom global variables
-		var cube;
-		var star;
+
+
 		init();
 		animate();
 
@@ -77,6 +78,7 @@ window.onload = function() {
 		{
 			// SCENE
 			scene = new THREE.Scene();
+
 			// CAMERA
 			var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
 			var VIEW_ANGLE = 40, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
@@ -93,9 +95,15 @@ window.onload = function() {
 				renderer = new THREE.WebGLRenderer( {antialias:true} );
 			else
 				renderer = new THREE.CanvasRenderer(); 
+
 			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 			container = document.createElement( 'div' );
+
+
 			document.body.appendChild( container );
+
+			
+
 			container.appendChild( renderer.domElement );
 			// EVENTS
 			THREEx.WindowResize(renderer, camera);
@@ -171,7 +179,7 @@ window.onload = function() {
 				// var wireframeMaterial = new THREE.MeshBasicMaterial( { color: 0xFF6103, wireframe: true, transparent: true } ); 
 				// var multiMaterial = [ darkMaterial, wireframeMaterial ]; 
 				
-				index % 2 == 0 ? img = "images/fire.jpeg": img = "images/blue.jpeg"
+				index % 2 == 0 ? img = "images/fire.jpeg": img = "images/fire.jpeg"
 				var fire = new THREE.MeshBasicMaterial({
 				    map: THREE.ImageUtils.loadTexture(img)
 				});
@@ -199,14 +207,14 @@ window.onload = function() {
 			// CUSTOM //
 			////////////
 
-
+			// stars
 			// create the particle variables
-			var particleCount = 288000,
+			var particleCount = 28000,
 			    particles = new THREE.Geometry(),
 			    pMaterial =
 			      new THREE.ParticleBasicMaterial({
 			        color: 0xFBDB0C,
-			        size: .9
+			        size: Math.random() * 10
 			      });
 				pMaterial.blending = THREE.AdditiveBlending;
 			// now create the individual particles
@@ -214,9 +222,9 @@ window.onload = function() {
 
 			  // create a particle with random
 			  // position values, -250 -> 250
-			  var pX = Math.random() * 14000 -7000,
-			      pY = Math.random() * 14000 -7000,
-			      pZ = Math.random() * 14000 -7000,
+			  var pX = Math.random() * 22000 -7000,
+			      pY = Math.random() * 22000 -7000,
+			      pZ = Math.random() * 22000 -7000,
 			      particle = new THREE.Vertex(
 			        new THREE.Vector3(pX, pY, pZ)
 			      );
@@ -234,11 +242,6 @@ window.onload = function() {
 
 			// add it to the scene
 			scene.add(particleSystem);
-
-
-			function sun(){
-
-			}
 
 			//sun addSun(x, y, z, radius, segWidth, segHeight, index )
 			addSun(0,0,9000,600,32,16,1);
@@ -276,62 +279,12 @@ window.onload = function() {
 			var radInner = 150;
 			var radMiddle = 155;
 			var radOuter = 160;
-
-			// for(var iDeg= 1; iDeg <=360 ; iDeg++){
-			// 	xInner = radInner * Math.cos(2 * Math.PI * iDeg / 360).toFixed(6);
-			// 	yInner = radInner * Math.sin(2 * Math.PI * iDeg / 360).toFixed(6); 
-
-
-			// 	xMiddle = radMiddle * Math.cos(2 * Math.PI * iDeg / 360).toFixed(6);
-			// 	yMiddle = radMiddle * Math.sin(2 * Math.PI * iDeg / 360).toFixed(6); 
-
-			// 	var lineGeometry = new THREE.Geometry();
-			// 	var vertArray = lineGeometry.vertices;
-			// 	vertArray.push( new THREE.Vector3(xInner, yInner, 1800), new THREE.Vector3(xMiddle, yMiddle, 1800));
-			// 	lineGeometry.computeLineDistances();
-			// 	var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
-			//  	line = new THREE.Line( lineGeometry, lineMaterial );
-			// 	scene.add(line);
-			// }
-
-
-
-			// var lineGeometry = new THREE.Geometry();
-			// var vertArray = lineGeometry.vertices;
-			// vertArray.push( new THREE.Vector3(-10, 0, camera.position.z), new THREE.Vector3(10, 0, 0));
-			// lineGeometry.computeLineDistances();
-			// var lineMaterial = new THREE.LineBasicMaterial( { color: 0xcc0000 } );
-		 // 	crossX = new THREE.Line( lineGeometry, lineMaterial );
-		 // 	//crossX.rotation.z = .45;
-			// scene.add(crossX);
-
-			// var lineGeometry = new THREE.Geometry();
-			// var vertArray = lineGeometry.vertices;
-			// vertArray.push( new THREE.Vector3(-10, 0, camera.position.z-10), new THREE.Vector3(10, 0, camera.position.z-10));
-			// lineGeometry.computeLineDistances();
-			// var lineMaterial = new THREE.LineBasicMaterial( { color: 0x00cc00 } );
-		 // 	crossX = new THREE.Line( lineGeometry, lineMaterial );
-		 // 	//crossX.rotation.z = .45;
-			// scene.add(crossX);
-
-			// var lineGeometry = new THREE.Geometry();
-			// var vertArray = lineGeometry.vertices;
-			// vertArray.push( new THREE.Vector3(0, -10, camera.position.z-10), new THREE.Vector3(0, 10, camera.position.z-10));
-			// lineGeometry.computeLineDistances();
-			// var lineMaterial = new THREE.LineBasicMaterial( { color: 0x0000cc } );
-		 // 	crossY = new THREE.Line( lineGeometry, lineMaterial );
-			// scene.add(crossY);
-
 		}
 
 		var x_motion_positive = true;
 		var drawAmmo = false;
 		var releaseAmmo = false;
 		var follow = false;
-		var m_angle = 0;
-		var planet2_m_angle =0;
-		var planet3_m_angle =0;
-		var planet4_m_angle =0;
 		var theta_xz =0;
 		var theta_yz =0;
 		function animate() 
