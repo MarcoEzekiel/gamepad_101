@@ -209,7 +209,7 @@ window.onload = function() {
 
 			// stars
 			// create the particle variables
-			var particleCount = 28000,
+			var particleCount = 14000,
 			    particles = new THREE.Geometry(),
 			    pMaterial =
 			      new THREE.ParticleBasicMaterial({
