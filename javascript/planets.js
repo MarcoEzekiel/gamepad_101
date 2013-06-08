@@ -52,7 +52,14 @@ window.onload = function() {
 	var sol = [];
 	var suns = [];
 	var lookAt;
+	var daylightIndicator;
+	var daylight;
+	var iMod = 0;
+	var shape_line =[];
 
+
+
+	var seeAll = false;
 	start();
   
     function start(){
@@ -116,19 +123,24 @@ window.onload = function() {
 			stats.domElement.style.bottom = '0px';
 			stats.domElement.style.zIndex = 100;
 			container.appendChild( stats.domElement );
+			
+			//
 			// LIGHT
+			//
 			var light = new THREE.PointLight(0xffffff);
 			light.position.set(0,250,0);
 			scene.add(light);
 
-
-
 			var light2 = new THREE.PointLight(0xffffff);
+			light2.position.set(0,0,9000);
+			scene.add(light2);
+
+			var light3 = new THREE.PointLight(0xffffff);
 			light2.position.set(0,0,16000);
 			scene.add(light2);
 
 			function addSolidLineShape( shape, extrudeSettings, color, x, y, z, rx, ry, rz, s,index ){
-				var shape_line =[];
+				
 
 				var points = shape.createPointsGeometry();
 				
@@ -170,6 +182,7 @@ window.onload = function() {
 				sun == 0 ? pPos = sol[sunIndex].radius: pPos = planet[sun].radius
 				planet[index].position.set( pPos + xDistance ,y,z);
 				planet[index].motionAngle = motionAngle;
+				planet[index].xDistance=xDistance;
 				scene.add( planet[index] );
 			}
 
@@ -249,37 +262,44 @@ window.onload = function() {
 			scene.add(particleSystem);
 
 			//sun addSun(x, y, z, radius, segWidth, segHeight, index )
-			addSun(0,0,9000,600,32,16,1);
+			addSun(0,0,9000,400,32,16,1);
 			//planets
-			addPlanet(200, sol[1].position.y, sol[1].position.z, 20, 32, 16, 0x0000ff, 0x7EB6FF, 1 ,0.0049	,1,1);
-			addPlanet(400, sol[1].position.y, sol[1].position.z, 30, 32, 16, 0xFF00ff, 0x000000, 2 ,0.0047	,1,0);
-			addPlanet(650, sol[1].position.y, sol[1].position.z, 35, 32, 16, 0x00ff00, 0x000000, 3 ,0.0027	,1,0);
-			addPlanet(1650,sol[1].position.y, sol[1].position.z, 91, 32, 16, 0xFFA07A, 0x000000, 4 ,0.00201	,1,0);	
+			addPlanet(200, sol[1].position.y, sol[1].position.z, 20, 32, 16, 0xFF0033, 0x000000, 1 ,0.0049	,1,1);
+			addPlanet(800, sol[1].position.y, sol[1].position.z, 30, 32, 16, 0x00DD99, 0x000000, 2 ,0.0047	,1,0);
+			addPlanet(1400, sol[1].position.y, sol[1].position.z, 35, 32, 16, 0x00ff00, 0x000000, 3 ,0.0027	,1,0);
+			addPlanet(2400,sol[1].position.y, sol[1].position.z, 200, 32, 16, 0xFF00ff, 0x000000, 4 ,0.00201	,1,0);	
 
 
 
 
 
-			// sun addSun(x, y, z, radius, segWidth, segHeight, index )
-			// addSun(-2000,4000,-4000,900,32,16,2);
-			// //planets
-			// addPlanet(600, sol[2].position.y, sol[2].position.z, 22, 32, 16, 0xFF00ff, 0x000000, 5 ,0.0047	,2);
-			// addPlanet(1250, sol[2].position.y, sol[2].position.z, 75, 32, 16, 0x00ff00, 0x000000, 6 ,0.0027	,2);
-			// addPlanet(1850,sol[2].position.y, sol[2].position.z, 61, 32, 16, 0xFFA07A, 0x000000, 7 ,0.00201	,2);	
+// 			// sun addSun(x, y, z, radius, segWidth, segHeight, index )
+// 			// addSun(-2000,4000,-4000,900,32,16,2);
+// 			// //planets
+// 			// addPlanet(600, sol[2].position.y, sol[2].position.z, 22, 32, 16, 0xFF00ff, 0x000000, 5 ,0.0047	,2);
+// 			// addPlanet(1250, sol[2].position.y, sol[2].position.z, 75, 32, 16, 0x00ff00, 0x000000, 6 ,0.0027	,2);
+// 			// addPlanet(1850,sol[2].position.y, sol[2].position.z, 61, 32, 16, 0xFFA07A, 0x000000, 7 ,0.00201	,2);	
 
-//tilt		
-			// planet[1].rotation.x = 3.1;
-			// planet[2].rotation.x = 4.7;
-			// planet[3].rotation.x = 7.6;
-			planet[4].rotation.x = 12;
-			//moons
-			addPlanet(200,planet[4].position.y, planet[4].position.z, 16, 32, 16, 0xFF00ff, 0x000000, 8 ,0.00201	,1,4);
-			addPlanet(300,planet[4].position.y, planet[4].position.z, 12, 32, 16, 0xFF00ff, 0x000000, 9 ,0.00201	,1,4);
-
-
+// //tilt		
+			planet[1].rotation.x = 0.311;
+			planet[2].rotation.x = 0.47;
+			planet[3].rotation.x = 0.6;
+			//planet[4].rotation.x = 0.11;
+// 			//moons
+ 			addPlanet(209,planet[4].position.y, planet[4].position.z, 19, 32, 16, 0xFFFFCC, 0xFFDDAA, 8 ,0.00201	,1,4);
+ 			addPlanet(321,planet[4].position.y, planet[4].position.z, 21, 32, 17, 0xFFCC99, 0xFFAA88, 9 ,0.00201	,1,4);
 
 			planet[8].rotation.x = 6.68;
-			planet[9].rotation.x= 3.13;
+			planet[9].rotation.x= 3.13; 			
+
+ 			// surface
+			//addPlanet(1,planet[4].position.y, planet[4].position.z, 10, 32, 16, 0xffffff, 0x000000, 10 ,0.00201	,1,4);
+
+ 			// lookat
+ 			addPlanet(5000,planet[4].position.y, planet[4].position.z, 1, 4, 2, 0xffffff, 0x000000, 11 ,0.00201	,1,4);
+
+ 			daylightIndicator = Math.sqrt(Math.pow(2400,2) + Math.pow(5000,2) );
+ 			//alert(daylightIndicator);
 
 			var radInner = 150;
 			var radMiddle = 155;
@@ -292,15 +312,20 @@ window.onload = function() {
 		var follow = false;
 		var theta_xz =0;
 		var theta_yz =0;
+		var cameraMotionAngle=0;
+
+		var camX, camY, camZ, lookX,lookY,lookZ;
 		function animate() 
 		{
+
+			iMod++;
 			var gamepads = navigator.webkitGetGamepads();
 
 			var pad = gamepads[0];
 			if( pad )
 			{
 		
-				pad.buttons[1] == 1 ? camera.position.set(0,150,14000): '';
+				pad.buttons[1] == 1 ? seeAll = true: seeAll = false;
 		
 				// drift protection as axis controllers do not return 0
 				var cxaxis  = Math.round( pad.axes[0] * 10 ) / 10; 
@@ -322,99 +347,158 @@ window.onload = function() {
 				//theta_xz is the angle in the xz plane (sweeping from z to x), 
 				//and theta yz is the angl in the yz plane (sweeping from z to y).
 				//alert(lookAt.x+":"+lookAt.y+":"+lookAt.z);
-				isNaN(lookAt.x) ? lookAt.x = 0: lookAt.x = lookAt.x;
-				isNaN(lookAt.y) ? lookAt.y = 0: lookAt.y = lookAt.y;
-				isNaN(lookAt.z) ? lookAt.z = 0: lookAt.z = lookAt.z;
-				var r = Math.sqrt(Math.pow(camera.position.x -lookAt.x,2) + Math.pow(camera.position.y - lookAt.y,2) + Math.pow(camera.position.z - lookAt.z,2));
-				cxaxis > 0 ? rxMotion = 2:rxMotion = -2;
-				cyaxis > 0 ? ryMotion = 2:ryMotion = -2;
-				czaxis > 0 ? rzMotion = 2:rzMotion = -2;
+				// isNaN(lookAt.x) ? lookAt.x = 0: lookAt.x = lookAt.x;
+				// isNaN(lookAt.y) ? lookAt.y = 0: lookAt.y = lookAt.y;
+				// isNaN(lookAt.z) ? lookAt.z = 0: lookAt.z = lookAt.z;
+				// var r = Math.sqrt(Math.pow(camera.position.x -lookAt.x,2) + Math.pow(camera.position.y - lookAt.y,2) + Math.pow(camera.position.z - lookAt.z,2));
+				// cxaxis > 0 ? rxMotion = 2:rxMotion = -2;
+				// cyaxis > 0 ? ryMotion = 2:ryMotion = -2;
+				// czaxis > 0 ? rzMotion = 2:rzMotion = -2;
 
-				theta_xz += de2ra(cxaxis);
-				theta_yz += de2ra(cyaxis);
+				// theta_xz += de2ra(cxaxis);
+				// theta_yz += de2ra(cyaxis);
 
-				if(czaxis != 0){
-					moveTo.x = (Math.sin(theta_xz) * rxMotion * Math.cos(theta_yz)) + camera.position.x;
-					moveTo.y = (ryMotion*Math.sin(theta_yz) ) + camera.position.y;
-					moveTo.z = ( Math.cos(theta_xz) * rzMotion *  Math.cos(theta_yz)) + camera.position.z;
-					//alert(theta_xz+":"+theta_yz+":"+moveTo.x+":"+moveTo.y+":"+moveTo.z);
-					camera.position.set(moveTo.x, moveTo.y, moveTo.z);
+				// if(czaxis != 0){
+				// 	moveTo.x = (Math.sin(theta_xz) * rxMotion * Math.cos(theta_yz)) + camera.position.x;
+				// 	moveTo.y = (ryMotion*Math.sin(theta_yz) ) + camera.position.y;
+				// 	moveTo.z = ( Math.cos(theta_xz) * rzMotion *  Math.cos(theta_yz)) + camera.position.z;
+				// 	//alert(theta_xz+":"+theta_yz+":"+moveTo.x+":"+moveTo.y+":"+moveTo.z);
+				// 	camera.position.set(moveTo.x, moveTo.y, moveTo.z);
 
 
 
-					lookAt.x = (Math.sin(theta_xz) * r * Math.cos(theta_yz)) + camera.position.x;
-					lookAt.y = (r*Math.sin(theta_yz) ) + camera.position.y;
-					lookAt.z = (Math.cos(theta_xz) * r * Math.cos(theta_yz)) - camera.position.z;
+				// 	lookAt.x = (Math.sin(theta_xz) * r * Math.cos(theta_yz)) + camera.position.x;
+				// 	lookAt.y = (r*Math.sin(theta_yz) ) + camera.position.y;
+				// 	lookAt.z = (Math.cos(theta_xz) * r * Math.cos(theta_yz)) - camera.position.z;
 
-				}
-				//alert(lookAt.x+":"+lookAt.y+":"+lookAt.z);
-				camera.lookAt(lookAt)
+				// }
+				// //alert(lookAt.x+":"+lookAt.y+":"+lookAt.z);
+				// camera.lookAt(lookAt)
 			}
 			
 
-			// cubey stuff
-			sol[1].rotation.y -= 0.01;
+			
+
+			// rotations
+			sol[1].rotation.y -= 0.006;
 			//sol[2].rotation.y -= 0.01;
-
-
-
 
 			planet[1].rotation.y -= 0.008;
 			planet[2].rotation.y -= 0.009;
 			planet[3].rotation.y -= 0.011;
 			planet[4].rotation.y -= 0.011;
-			// planet[5].rotation.y -= 0.011;
-			// planet[6].rotation.y -= 0.014;
-			// planet[7].rotation.y -= 0.018;
+			// // planet[5].rotation.y -= 0.011;
+			// // planet[6].rotation.y -= 0.014;
+			// // planet[7].rotation.y -= 0.018;
 
-			planet[8].rotation.y -= 0.018;
+			planet[8].rotation.y -= 0.0027;
 
-			planet[9].rotation.y -= 0.036;
+			planet[9].rotation.y -= 0.0036;
 
-			planet[1].motionAngle += 0.0049;
-			planet[1].position.set(   (sol[1].radius+200) * Math.cos(planet[1].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+200)* Math.sin(planet[1].motionAngle) + sol[1].position.z)
+			//planet[10].rotation.y -=0.0012;
+
+			/*
+			* Orbits
+			*/ 
+			planet[1].motionAngle += 0.0032;
+			planet[1].position.set(   (sol[1].radius + planet[1].xDistance ) * Math.cos(planet[1].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+planet[1].xDistance)* Math.sin(planet[1].motionAngle) + sol[1].position.z)
 
 
 			planet[2].motionAngle += 0.0047; 
-			planet[2].position.set(  (sol[1].radius+400)* Math.cos(planet[2].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+400)* Math.sin(planet[2].motionAngle) + sol[1].position.z)
+			planet[2].position.set(  (sol[1].radius + planet[2].xDistance )* Math.cos(planet[2].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+planet[2].xDistance)* Math.sin(planet[2].motionAngle) + sol[1].position.z)
 			
 
 			planet[3].motionAngle += 0.0027; 
-			planet[3].position.set(   (sol[1].radius+650)* Math.cos(planet[3].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+650)* Math.sin(planet[3].motionAngle) + sol[1].position.z)
+			planet[3].position.set(   (sol[1].radius + planet[3].xDistance )* Math.cos(planet[3].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+planet[3].xDistance)* Math.sin(planet[3].motionAngle) + sol[1].position.z)
 			
-			planet[4].motionAngle += 0.00201;
-			planet[4].position.set(   (sol[1].radius+1150)* Math.cos(planet[4].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+1150)* Math.sin(planet[4].motionAngle) + sol[1].position.z)
+			planet[4].motionAngle += 0.0011;
+			planet[4].position.set(   (sol[1].radius + planet[4].xDistance )* Math.cos(planet[4].motionAngle) + sol[1].position.x , sol[1].position.y ,(sol[1].radius+planet[4].xDistance)* Math.sin(planet[4].motionAngle) + sol[1].position.z)
 			
-			// planet[5].motionAngle += 0.00201;
-			// planet[5].position.set(   (sol[2].radius+600)* Math.cos(planet[5].motionAngle) + sol[2].position.x , sol[2].position.y ,(sol[2].radius+1150)* Math.sin(planet[5].motionAngle) + sol[2].position.z)
+
+			// the moon s
+
+			planet[9].motionAngle += 0.0011/12;
+			planet[9].position.set(   (planet[4].radius+planet[9].xDistance)* Math.cos(planet[9].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+planet[9].xDistance)* Math.sin(planet[9].motionAngle) + planet[4].position.z)
+
+			planet[8].motionAngle += 0.0011/10;
+			planet[8].position.set(   (planet[4].radius+planet[8].xDistance)* Math.cos(planet[8].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+planet[8].xDistance)* Math.sin(planet[8].motionAngle) + planet[4].position.z)
+
+// surface
+			// planet[10].motionAngle += 0.0015;
+			// planet[10].position.set(   (planet[4].radius+planet[10].xDistance)* Math.cos(planet[10].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+planet[10].xDistance)* Math.sin(planet[10].motionAngle) + planet[4].position.z)
+
+// lookat
+			planet[11].motionAngle += 0.0015;
+			planet[11].position.set(   (planet[4].radius+planet[11].xDistance)* Math.cos(planet[11].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+planet[11].xDistance)* Math.sin(planet[11].motionAngle) + planet[4].position.z)
+
+			var distancetosun = Math.sqrt( Math.pow(sol[1].position.z - planet[11].position.z, 2 ) + Math.pow(sol[1].position.x - planet[11].position.x,2  ));
+			Math.round(distancetosun) <= Math.round(daylightIndicator) ? daylight=true: daylight=false;
+
+
+			daylight === true ? document.body.style.background = '#4444FF': document.body.style.background= '#020002';
+			// var skyColor = getGradients(distancetosun);
+			// document.body.style.background = skyColor[1];
+
+			camX = planet[4].radius * Math.cos(planet[4].motionAngle) + planet[4].position.x;
+			camY = planet[4].position.y;
+			camZ = planet[4].radius * Math.sin(planet[4].motionAngle) + planet[4].position.z;
+
+			// lookAt.x = planet[11].position.x
+			// lookAt.y = planet[11].position.y;
+			// lookAt.z = planet[11].position.z;
+
 			
-			// planet[6].motionAngle += 0.00201;
-			// planet[6].position.set(   (sol[2].radius+1200)* Math.cos(planet[6].motionAngle) + sol[2].position.x , sol[2].position.y ,(sol[2].radius+1150)* Math.sin(planet[6].motionAngle) + sol[2].position.z)
+			if(seeAll === false){
+				camera.position.set((planet[4].radius+1)* Math.cos(planet[11].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+1)* Math.sin(planet[11].motionAngle) + planet[4].position.z);
+				camera.lookAt(planet[11].position);
+			}
+			else{
+				camera.position.set(0,0,16000);
+				camera.lookAt(scene.position);
+			}
+			 // camera.position.set(sol[1].position.x, sol[1].position.y+5000, sol[1].position.z+500);
+			 // camera.lookAt(sol[1].position);
+			// camera is on
+			// // planet[5].motionAngle += 0.00201;
+			// // planet[5].position.set(   (sol[2].radius+600)* Math.cos(planet[5].motionAngle) + sol[2].position.x , sol[2].position.y ,(sol[2].radius+1150)* Math.sin(planet[5].motionAngle) + sol[2].position.z)
 			
-			// planet[7].motionAngle += 0.00201;
-			// planet[7].position.set(   (sol[2].radius+1850)* Math.cos(planet[7].motionAngle) + sol[2].position.x , sol[2].position.y ,(sol[2].radius+1150)* Math.sin(planet[7].motionAngle) + sol[2].position.z)
+			// // planet[6].motionAngle += 0.00201;
+			// // planet[6].position.set(   (sol[2].radius+1200)* Math.cos(planet[6].motionAngle) + sol[2].position.x , sol[2].position.y ,(sol[2].radius+1150)* Math.sin(planet[6].motionAngle) + sol[2].position.z)
 			
-			planet[8].motionAngle += 0.00601;
-			planet[8].position.set(   (planet[4].radius+200)* Math.cos(planet[8].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+200)* Math.sin(planet[8].motionAngle) + planet[4].position.z)
+			// // planet[7].motionAngle += 0.00201;
+			// // planet[7].position.set(   (sol[2].radius+1850)* Math.cos(planet[7].motionAngle) + sol[2].position.x , sol[2].position.y ,(sol[2].radius+1150)* Math.sin(planet[7].motionAngle) + sol[2].position.z)
+			
+			// planet[8].motionAngle += 0.00601;
+			// planet[8].position.set(   (planet[4].radius+planet[8].xDistance)* Math.cos(planet[8].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+planet[8].xDistance)* Math.sin(planet[8].motionAngle) + planet[4].position.z)
 
-			planet[9].motionAngle += 0.00301;
-			planet[9].position.set(   (planet[4].radius+300)* Math.cos(planet[9].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+300)* Math.sin(planet[9].motionAngle) + planet[4].position.z)
+			// planet[9].motionAngle += 0.00301;
+			// planet[9].position.set(   (planet[4].radius+planet[9].xDistance)* Math.cos(planet[9].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+planet[9].xDistance)* Math.sin(planet[9].motionAngle) + planet[4].position.z)
 
-
-			var xDisplay = '<div class="headerShort">X: '+Math.round(camera.position.x * 100)/100 +'</div>';
-			var yDisplay = '<div class="headerShort">Y: '+Math.round(camera.position.y * 100)/100 +'</div>';
-			var zDisplay = '<div class="headerShort">Z: '+Math.round(camera.position.z * 100)/100 +'</div>';
-			var theta_yzDisplay = '<div class="headerLong">theta_yz: '+theta_yz+'</div> ';
-			var theta_xzDisplay = '<div class="headerLong">theta_xz: '+theta_xz+'</div>';
-			var displayLookAtX = '<div class="headerLong">lookAtX: '+lookAt.x +'</div>';
-			var displayLookAtY = '<div class="headerLong">lookAtY: '+lookAt.y +'</div>';
-			var displayLookAtZ = '<div class="headerLong">lookAtZ: '+lookAt.z +'</div>';
-			var details = xDisplay+yDisplay+zDisplay+theta_yzDisplay+theta_xzDisplay+displayLookAtX+displayLookAtY+displayLookAtZ;
+			//var 4RotDisplay = '<div class="headerShort">4 rot: '+planet[4].rotation.y+'</div>';
 
 
+			// if( Math.round( planet[4].rotation.y*100 )/100 % Math.round() ){
 
-			$('#details').html( details  );
-			//pad.buttons[i]
+			// }
+			// var piMod = ( Math.round( Math.PI*100 )/100 ) % (0-( Math.round( planet[4].rotation.y*100 )/100 )) ;
+
+			// if(piMod == 0){alert('0')}
+
+			// var xDisplay = '<div class="headerShort">'+daylight +' : </br>'+Math.round(distancetosun)+' : </br>'+Math.round(daylightIndicator)+'</div>';
+			// //var xDisplay = '<div class="headerShort">X: '+Math.round(camera.position.x * 100)/100 +'</div>';
+			// var yDisplay = '<div class="headerShort">Y: '+Math.round(camera.position.y * 100)/100 +'</div>';
+			// var zDisplay = '<div class="headerShort">Z: '+Math.round(camera.position.z * 100)/100 +'</div>';
+			// var theta_yzDisplay = '<div class="headerLong">theta_yz: '+theta_yz+'</div> ';
+			// var theta_xzDisplay = '<div class="headerLong">theta_xz: '+theta_xz+'</div>';
+			// var displayLookAtX = '<div class="headerLong">lookAtX: '+lookAt.x +'</div>';
+			// var displayLookAtY = '<div class="headerLong">lookAtY: '+lookAt.y +'</div>';
+			// var displayLookAtZ = '<div class="headerLong">lookAtZ: '+lookAt.z +'</div>';
+			// var details = xDisplay+yDisplay+zDisplay+theta_yzDisplay+theta_xzDisplay+displayLookAtX+displayLookAtY+displayLookAtZ;
+
+
+
+			// $('#details').html( details  );
+			// //pad.buttons[i]
 		    requestAnimationFrame( animate );
 			render();		
 			update();

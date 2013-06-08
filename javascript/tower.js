@@ -146,12 +146,12 @@ window.onload = function() {
 
 
 					var img = "images/stone1.jpeg";
-					var fire = new THREE.MeshBasicMaterial({
+					var imgMesh = new THREE.MeshBasicMaterial({
 					    map: THREE.ImageUtils.loadTexture(img)
 					});
 					mesh =[];
-					mesh[index] = THREE.SceneUtils.createMultiMaterialObject( geometry, [ new THREE.MeshLambertMaterial( { color: color } ), new THREE.MeshBasicMaterial( { color: 0xFF6EC7, wireframe: true, transparent: true } ) ] );
-					//mesh[index] = THREE.SceneUtils.createMultiMaterialObject( geometry, [ fire, new THREE.MeshLambertMaterial( { color: color } )] );
+					mesh[index] = THREE.SceneUtils.createMultiMaterialObject( geometry, [ new THREE.MeshLambertMaterial( { color: color } ), new THREE.MeshBasicMaterial( { color: color, wireframe: true, transparent: true } ) ] );
+					//mesh[index] = THREE.SceneUtils.createMultiMaterialObject( geometry, [ imgMesh, new THREE.MeshLambertMaterial( { color: color } )] );
 					mesh[index].position.set( x, y, z);
 					mesh[index].rotation.set( rx, ry, rz );
 					mesh[index].scale.set( s, s, s );
@@ -185,11 +185,11 @@ window.onload = function() {
 
 						var brickShape = new THREE.Shape( brickPts );
 					
-						var extrudeSettings = { amount: height }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5;
+						var extrudeSettings = { amount: height-10, steps: 5 , bevelSegments: 5, bevelSize: 5, bevelThickness:5 }; // bevelSegments: 2, steps: 2 , bevelSegments: 5, bevelSize: 8, bevelThickness:5;
 						
 						for(var l = 1;  l <=courses; l++){
 							//addSolidLineShape( brickShape, extrudeSettings, 0xff0000, 0, 0, l*20, 0, 0, 0, 1,i, 'brick' );
-							addExtruded3DShape( brickShape, extrudeSettings, 0xff0000, 0, 0, l*40, 0,0, 0, 1,i);
+							addExtruded3DShape( brickShape, extrudeSettings, Math.random() * 0xffffff, 0, 0,  (l*height) , 0,0, 0, 1,i);
 						}
 
 					}
@@ -211,7 +211,7 @@ window.onload = function() {
 			// CUSTOM //
 			////////////
 
-			drawHewnBrick(200,20,20, 40, 4);
+			drawHewnBrick(80,27,10, 20, 20);
 
 
 		
