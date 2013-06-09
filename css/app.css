@@ -1,7 +1,7 @@
 body{
-	background: linear-gradient(to right, #110011, #090009, #060006,  #000000, #060006,#090009, #110011);
+	background-color: black;
 	color:white;
-	transition: background-color 5s ease 1500ms
+	transition: background-color 10s ease 4500ms
 }
 a{
 	color:#FF00FF;

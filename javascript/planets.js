@@ -267,7 +267,7 @@ window.onload = function() {
 			addPlanet(200, sol[1].position.y, sol[1].position.z, 20, 32, 16, 0xFF0033, 0x000000, 1 ,0.0049	,1,1);
 			addPlanet(800, sol[1].position.y, sol[1].position.z, 30, 32, 16, 0x00DD99, 0x000000, 2 ,0.0047	,1,0);
 			addPlanet(1400, sol[1].position.y, sol[1].position.z, 35, 32, 16, 0x00ff00, 0x000000, 3 ,0.0027	,1,0);
-			addPlanet(2400,sol[1].position.y, sol[1].position.z, 200, 32, 16, 0xFF00ff, 0x000000, 4 ,0.00201	,1,0);	
+			addPlanet(2600,sol[1].position.y, sol[1].position.z, 200, 32, 16, 0xFF00ff, 0x000000, 4 ,0.00201	,1,0);	
 
 
 
@@ -286,8 +286,8 @@ window.onload = function() {
 			planet[3].rotation.x = 0.6;
 			//planet[4].rotation.x = 0.11;
 // 			//moons
- 			addPlanet(209,planet[4].position.y, planet[4].position.z, 19, 32, 16, 0xFFFFCC, 0xFFDDAA, 8 ,0.00201	,1,4);
- 			addPlanet(321,planet[4].position.y, planet[4].position.z, 21, 32, 17, 0xFFCC99, 0xFFAA88, 9 ,0.00201	,1,4);
+ 			addPlanet(321,planet[4].position.y, planet[4].position.z, 33, 32, 16, 0xFFFFCC, 0xFFDDAA, 8 ,0.00201	,1,4);
+ 			addPlanet(600,planet[4].position.y, planet[4].position.z, 66, 32, 17, 0xFFCC99, 0xFFAA88, 9 ,0.00201	,1,4);
 
 			planet[8].rotation.x = 6.68;
 			planet[9].rotation.x= 3.13; 			
@@ -298,7 +298,7 @@ window.onload = function() {
  			// lookat
  			addPlanet(5000,planet[4].position.y, planet[4].position.z, 1, 4, 2, 0xffffff, 0x000000, 11 ,0.00201	,1,4);
 
- 			daylightIndicator = Math.sqrt(Math.pow(2400,2) + Math.pow(5000,2) );
+ 			daylightIndicator = Math.sqrt(Math.pow(2600,2) + Math.pow(5000,2) );
  			//alert(daylightIndicator);
 
 			var radInner = 150;
@@ -386,7 +386,7 @@ window.onload = function() {
 			planet[1].rotation.y -= 0.008;
 			planet[2].rotation.y -= 0.009;
 			planet[3].rotation.y -= 0.011;
-			planet[4].rotation.y -= 0.011;
+			planet[4].rotation.y -= 0.015;
 			// // planet[5].rotation.y -= 0.011;
 			// // planet[6].rotation.y -= 0.014;
 			// // planet[7].rotation.y -= 0.018;
@@ -428,7 +428,7 @@ window.onload = function() {
 			// planet[10].position.set(   (planet[4].radius+planet[10].xDistance)* Math.cos(planet[10].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+planet[10].xDistance)* Math.sin(planet[10].motionAngle) + planet[4].position.z)
 
 // lookat
-			planet[11].motionAngle += 0.0015;
+			planet[11].motionAngle += 0.0030;
 			planet[11].position.set(   (planet[4].radius+planet[11].xDistance)* Math.cos(planet[11].motionAngle) + planet[4].position.x , planet[4].position.y ,(planet[4].radius+planet[11].xDistance)* Math.sin(planet[11].motionAngle) + planet[4].position.z)
 
 			var distancetosun = Math.sqrt( Math.pow(sol[1].position.z - planet[11].position.z, 2 ) + Math.pow(sol[1].position.x - planet[11].position.x,2  ));
