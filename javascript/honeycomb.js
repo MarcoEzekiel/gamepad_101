@@ -109,8 +109,7 @@ window.onload = function() {
 
 
 			parent = new THREE.Object3D();
-			parent.position.y = 50;
-			
+
 
 			//FLOOR
 			// wireframe for xy-plane
@@ -181,7 +180,7 @@ window.onload = function() {
 
 					// solid line
 
-					var line = new THREE.Line( points, new THREE.LineBasicMaterial( { color: color, linewidth: 2 } ) );
+					var line = new THREE.Line( points, new THREE.LineBasicMaterial( { color: color, linewidth: 1 } ) );
 					line.position.set( x, y, z);
 					line.rotation.set( rx, ry, rz );
 					line.scale.set( s, s, s );

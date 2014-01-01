@@ -251,33 +251,6 @@
         }
         hex1(0.0, 0.0, -2.0, hexVertexRandColorBuffer);
 
-        //hex1(-1.75, -1.0, 0.0, hexVertexRedBuffer);
-
-        // mat4.translate(mvMatrix, [-1.75, -1.0, 0.0]);
-        // gl.bindBuffer(gl.ARRAY_BUFFER, hexVertexPositionBuffer);
-        // gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, hexVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        // setMatrixUniforms();
-        // gl.drawArrays(gl.LINE_STRIP, 0, hexVertexPositionBuffer.numItems);
-
-        // mat4.translate(mvMatrix, [0, +2.0, 0.0]);
-        // gl.bindBuffer(gl.ARRAY_BUFFER, hexVertexPositionBuffer);
-        // gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, hexVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        // setMatrixUniforms();
-        // gl.drawArrays(gl.LINE_STRIP, 0, hexVertexPositionBuffer.numItems);
-
-        // mat4.translate(mvMatrix, [0, +2.0, 0.0]);
-        // gl.bindBuffer(gl.ARRAY_BUFFER, hexVertexPositionBuffer);
-        // gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, hexVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        // setMatrixUniforms();
-        // gl.drawArrays(gl.LINE_STRIP, 0, hexVertexPositionBuffer.numItems);
-
-        // mat4.translate(mvMatrix, [+1.75, -1.0, 0.0]);
-        // gl.bindBuffer(gl.ARRAY_BUFFER, hexVertexPositionBuffer);
-        // gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, hexVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        // setMatrixUniforms();
-        // gl.drawArrays(gl.LINE_STRIP, 0, hexVertexPositionBuffer.numItems);
-
-
     }
 
     var lastTime = 0;

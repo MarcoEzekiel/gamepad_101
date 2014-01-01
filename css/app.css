@@ -1,8 +1,10 @@
 body{
 	background-color: black;
 	color:white;
-	transition: background-color 10s ease 4500ms
+	transition: background-color 3s ease 1500ms;
 }
+
+
 a{
 	color:#FF00FF;
 }

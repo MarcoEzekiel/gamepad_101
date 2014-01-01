@@ -1,10 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>HoneyComb Examples</title>
+		<title>Random Terrain Generation Examples</title>
+
+		<!-- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script> -->
+		<!-- <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script> -->
 		<script src="javascript/jquery-1.9.1.js"></script>
 		<script src="javascript/modernizr.custom.42920.js"></script>
 		<script src="javascript/gamepad.js/gamepad.js"></script>
+	
+		<script src="javascript/TerrainGeneration.js"></script>
 		<script src="javascript/three.min.js"></script>
 		<script src="javascript/Detector.js"></script>
 		<script src="javascript/THREEx.FullScreen.js"></script>
@@ -12,11 +17,18 @@
 		<script src="javascript/THREEx.WindowResize.js"></script>
 		<script src="javascript/TrackballControls.js"></script>
 		<script src="javascript/Stats.js"></script>
+<!--
 		<link rel="stylesheet" type="text/css" href="css/app.css">
+-->
 	</head>
-	<body>
+	<body style="background-color:black;">
+		<div id = "display">
+			<canvas id = "container" />
+		</div>
+
 		<footer>
-				<script src="javascript/honeycomb.js"></script> 
+				<script src="javascript/terrain.js"></script>
 		</footer>
+		
 	</body>
 </header>
